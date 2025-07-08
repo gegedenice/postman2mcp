@@ -160,6 +160,10 @@ The generated project will look like:
 
 ---
 
+## Todo
+
+- Generate a Dockerfile to run a MCP container
+
 ## Example repository: openalex-postman2mcp
 
 See this GitHub repository [https://github.com/gegedenice/openalex-postman2mcp](https://github.com/gegedenice/openalex-postman2mcp) to have an example of generated MCP server on the OpenAlex API.
