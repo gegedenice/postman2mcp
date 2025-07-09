@@ -156,7 +156,7 @@ The generated project will look like:
 - **server.py**: FastMCP server entry point.
 - **ngrok_tunnel.py**: script to expose your MCP server via Ngrok.
 - **requirements.txt**: python dependencies.
-- **README.md**: Ppoject-specific instructions.
+- **README.md**: Project-specific instructions.
 
 ---
 

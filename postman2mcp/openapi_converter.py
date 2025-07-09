@@ -64,10 +64,7 @@ def convert_to_openapi(postman_collection) -> Tuple[dict, str]:
         "paths": {}
     }
 
-    base_url = None
-
     def process_items(items: List[Dict]):
-        nonlocal base_url
         for item in items:
             if "item" in item:
                 process_items(item["item"])  # Recurse into folders
@@ -78,11 +75,6 @@ def convert_to_openapi(postman_collection) -> Tuple[dict, str]:
 
                 method = request.get("method", "GET").lower()
                 url_obj = request.get("url", {})
-                raw_url = url_obj.get("raw", "")
-                if raw_url and not base_url:
-                    parsed = urlparse(raw_url)
-                    base_url = f"{parsed.scheme}://{parsed.netloc}"
-
                 path = extract_path(url_obj)
                 parameters = extract_query_parameters(url_obj)
                 summary = item.get("name", f"{method.upper()} {path}")
@@ -112,10 +104,23 @@ def convert_to_openapi(postman_collection) -> Tuple[dict, str]:
                         }
                     }
                 }
+    def reinject_examples_in_description(openapi):
+        for path, methods in openapi.get("paths", {}).items():
+            for method, details in methods.items():
+                desc = details.get("description", "")
+                responses = details.get("responses", {})
+                for resp in responses.values():
+                    content = resp.get("content", {})
+                    for ctype in content.values():
+                        examples = ctype.get("examples", {})
+                        if examples:
+                            desc += "\n\n---\n**Examples:**\n"
+                            for ex in examples.values():
+                                desc += f"- {ex.get('summary', '')}: `{ex.get('value', '')}`\n"
+                details["description"] = desc
+        return openapi
 
     process_items(postman["collection"]["item"])
-    if base_url:
-        openapi["servers"] = [{"url": base_url}]
-    else:
-        raise ValueError("No valid base URL found in Postman collection.")
-    return openapi, base_url
+    openapi["servers"] = [{"url": "http://localhost:8000"}]
+    openapi = reinject_examples_in_description(openapi)
+    return openapi
