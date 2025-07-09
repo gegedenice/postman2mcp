@@ -127,7 +127,7 @@ Then navigate to your project directory:
 cd ./my-mcp-project
 ```
 
-Follow the generated `README.md` in your project for next steps (install dependencies, run servers, etc).
+**Follow the generated `README.md` in your project for next steps (install dependencies, run servers, etc).**
 
 ---
 
@@ -157,10 +157,6 @@ The generated project will look like:
 - **ngrok_tunnel.py**: script to expose your MCP server via Ngrok.
 - **requirements.txt**: python dependencies.
 - **README.md**: Ppoject-specific instructions.
-
-## Run the project
-
-Follow the instructions in the README file to launch the FastAPI and FastMCP servers.
 
 ---
 
