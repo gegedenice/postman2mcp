@@ -158,10 +158,15 @@ The generated project will look like:
 - **requirements.txt**: python dependencies.
 - **README.md**: Ppoject-specific instructions.
 
+## Run the project
+
+Follow the instructions in the README file to launch the FastAPI and FastMCP servers.
+
 ---
 
 ## Todo
 
+- Better manage logging messages
 - Generate a Dockerfile to run a MCP container
 
 ## Example repository: openalex-postman2mcp
