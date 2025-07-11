@@ -82,6 +82,16 @@ postman2mcp --collection-id <POSTMAN_COLLECTION_ID> \
 
 ---
 
+## Recommendations for Creating Your Postman Collection
+
+1. **Think Like an LLM:** When designing your Postman collection, always consider what information would be most useful for a large language model (LLM) to understand and utilize your API. Include all relevant details, context, and clarifications that could help an LLM generate accurate and helpful responses. Anticipate the kinds of questions or tasks an LLM might be asked to perform using your API, and ensure the collection provides the necessary information.
+
+2. **Thorough Documentation:** Document every route and request in your collection with clear, comprehensive descriptions. Explain the purpose, expected inputs, outputs, and any edge cases or special behaviors. Well-documented collections are much easier for both humans and LLMs to interpret and use effectively.
+
+3. **Diverse and Multiple Examples:** For each route, provide multiple and diverse example requests and responses. This helps LLMs (and users) understand the full range of possible interactions with your API, including typical, edge, and error cases. The more varied your examples, the better the LLM can generalize and assist with real-world usage scenarios.
+
+---
+
 ### How to Find Your Postman Collection ID
 
 1. Open [Postman Web](https://web.postman.co/).
@@ -163,6 +173,7 @@ The generated project will look like:
 ## Todo
 
 - Better manage logging messages
+- Add polite tool in Postman collection
 - Generate a Dockerfile to run a MCP container
 
 ## Example repository: openalex-postman2mcp

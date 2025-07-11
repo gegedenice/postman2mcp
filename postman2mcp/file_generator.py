@@ -167,7 +167,7 @@ uvicorn
         f.write(env_content)
         
     # Generate README.md
-    readme_content = f"""# FastAPI MCP Project
+    readme_content = """# FastAPI MCP Project
 This project contains a FastAPI-based MCP server that proxies requests to an OpenAPI-compliant API.
 
 It has been generated with the [`postman2mcp`](https://github.com/gegedenice/postman2mcp) tool, which converts a Postman collection into an OpenAPI specification and sets up a FastAPI server to handle requests.
@@ -216,30 +216,54 @@ It has been generated with the [`postman2mcp`](https://github.com/gegedenice/pos
    ```
     python ngrok_tunnel.py
     ```
+## Available URLs and Endpoints
 
-## Postman Collection
+### Postman Collection
 You can find the Postman collection in `fastapi_proxy/postman_collection.json`.
 
-## OpenAPI Specification
+### OpenAPI Specification
 The OpenAPI specification is available at `fastapi_proxy/openapi.json`.    
 
-## FastAPI Server
+### FastAPI Server
 - The FastAPI server will be running at `http://localhost:8000`.
 - Acces the plugin manifest at `http://localhost:8000/.well-known/ai-plugin.json`.
 - Access the OpenAPI specification at `http://localhost:8000/openapi.json`.
 - Access the Swagger API documentation at `http://localhost:8000/docs`.
 
-## FastMCP server
+### FastMCP server
 
 The MCP server url is `http://localhost:3333/mcp`
 
-## FastMCP Inspector
+### FastMCP Inspector
 - Access the FastMCP Inspector at `http://localhost:6274` (get the token in the console output of the FastMCP server).
 
-## Ngrok Tunnel
+### Ngrok Tunnel
 - Get the ngrok public url in the console output of the `ngrok_tunnel.py` script.
 - You can access the MCP server at `http://<ngrok_url>/mcp`.
 - Monitore your ngrok requests at `https://dashboard.ngrok.com` (login with your ngrok account).
+
+## Integrations examples
+
+### Claude Desktop
+
+Currently, Claude Desktop does not support HTTP streamable transport for MCP. To connect your MCP server, you need to add it to your `claude_desktop_config.json` using mcp-remote with the http-only transport option:
+```
+{
+  "mcpServers": {
+    "my-mcp-server": {
+      "command": "npx",
+      "args": [
+	    "-y",
+        "mcp-remote",
+        "http://localhost:3333/mcp",
+        "--transport",
+        "http-only"
+      ]
+    }
+  }	
+}
+```
+This configuration ensures Claude Desktop communicates with your MCP server over HTTP.
 """
     with open(os.path.join(project_dir, "README.md"), "w") as f:
         f.write(readme_content)
