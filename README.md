@@ -96,14 +96,13 @@ You can have a look as an example to [https://www.postman.com/smartbiblia/mcp-pu
 
 ### How to Find Your Postman Collection ID
 
-1. Open [Postman Web](https://web.postman.co/).
-2. Go to your workspace and select the collection you want to use.
-3. In the collection details, look at the URL in your browser.  
-   It will look like:  
-   ```
-   https://web.postman.co/collections/<COLLECTION_ID>?workspace=...
-   ```
-   Copy the `<COLLECTION_ID>` part.
+1. By the Postman API to list your collections
+```
+https://api.getpostman.com/collections?apikey={{postman-api-key-here}}
+```
+2. By viewing Info on the right sidebar
+
+![postman_collection_uid](postman_collection_uid.png)
 
 ---
 
