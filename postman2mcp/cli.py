@@ -19,10 +19,10 @@ def main(collection_id, project_dir, postman_api_key, ngrok_authtoken):
     postman_collection = harvest_postman_collection(collection_id, postman_api_key)
 
     # Step 2: Convert to OpenAPI
-    openapi_spec = convert_to_openapi(postman_collection)
+    openapi_spec, base_url = convert_to_openapi(postman_collection)
 
     # Step 3: Generate project files
-    generate_project_files(project_dir, postman_collection, openapi_spec, postman_api_key, ngrok_authtoken=None)
+    generate_project_files(project_dir, postman_collection, openapi_spec, base_url, postman_api_key, ngrok_authtoken=None)
     click.echo(f"Project files generated in {project_dir}")
 
 if __name__ == '__main__':

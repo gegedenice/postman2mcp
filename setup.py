@@ -16,6 +16,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "click",
+        "requests"
     ],
     python_requires=">=3.7",
     include_package_data=True,

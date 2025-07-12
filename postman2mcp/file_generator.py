@@ -2,12 +2,10 @@
 import os
 import json
 
-def generate_project_files(project_dir, postman_collection, openapi_spec, postman_api_key, ngrok_authtoken):
+def generate_project_files(project_dir, postman_collection, openapi_spec, base_url, postman_api_key, ngrok_authtoken):
     # Create fastapi_proxy directory inside project_dir
     fastapi_proxy_dir = os.path.join(project_dir, "fastapi_proxy")
     os.makedirs(fastapi_proxy_dir, exist_ok=True)
-    
-    base_url = "http://localhost:8000"
     
     # Save Postman collection
     with open(os.path.join(fastapi_proxy_dir, "postman_collection.json"), "w") as f:
@@ -45,7 +43,7 @@ import httpx
 import os
 import uvicorn
 
-app = FastAPI(title="OpenAlex MCP Server", openapi_url=None )
+app = FastAPI(title="FastAPI Server", openapi_url=None )
 
 # CORS for LLM or local dev tools
 app.add_middleware(

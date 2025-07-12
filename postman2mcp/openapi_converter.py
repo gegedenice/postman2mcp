@@ -52,6 +52,32 @@ def extract_examples(responses: List[Dict]) -> Dict:
         }
     return examples
 
+def extract_base_url_from_first_request(items: List[Dict]) -> str:
+    """
+    Recursively traverse items to find the first request and extract its base URL.
+    """
+    for item in items:
+        if "item" in item:
+            # Folder, recurse
+            url = extract_base_url_from_first_request(item["item"])
+            if url:
+                return url
+        else:
+            request = item.get("request", {})
+            url_obj = request.get("url", {})
+            # Prefer 'raw' if available, else reconstruct from protocol/host
+            if "raw" in url_obj:
+                raw_url = url_obj["raw"]
+                parsed = urlparse(raw_url)
+                return f"{parsed.scheme}://{parsed.netloc}"
+            elif "protocol" in url_obj and "host" in url_obj:
+                protocol = url_obj["protocol"]
+                host = url_obj["host"]
+                if isinstance(host, list):
+                    host = ".".join(host)
+                return f"{protocol}://{host}"
+    return "http://localhost:8000"  # fallback
+
 def convert_to_openapi(postman_collection) -> Tuple[dict, str]:
     postman = postman_collection if isinstance(postman_collection, dict) else json.loads(postman_collection)
     openapi = {
@@ -121,6 +147,7 @@ def convert_to_openapi(postman_collection) -> Tuple[dict, str]:
         return openapi
 
     process_items(postman["collection"]["item"])
+    base_url = extract_base_url_from_first_request(postman["collection"]["item"])
     openapi["servers"] = [{"url": "http://localhost:8000"}]
     openapi = reinject_examples_in_description(openapi)
-    return openapi
+    return openapi,base_url
