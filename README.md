@@ -90,6 +90,8 @@ postman2mcp --collection-id <POSTMAN_COLLECTION_ID> \
 
 3. **Diverse and Multiple Examples:** For each route, provide multiple and diverse example requests and responses. This helps LLMs (and users) understand the full range of possible interactions with your API, including typical, edge, and error cases. The more varied your examples, the better the LLM can generalize and assist with real-world usage scenarios.
 
+You can have a look as an example to [https://www.postman.com/smartbiblia/mcp-public-servers/collection/dfbn6uv/openalex-api](https://www.postman.com/smartbiblia/mcp-public-servers/collection/dfbn6uv/openalex-api)
+
 ---
 
 ### How to Find Your Postman Collection ID
